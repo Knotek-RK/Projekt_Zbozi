@@ -3,18 +3,28 @@ package zbozi.eshop;
 import java.math.BigDecimal;
 
 public class Product {
-    private int id;
+    private Long id;
     private int partNo;
     private String name;
     private String description;
     private Boolean isForSale;
     private BigDecimal price;
 
-    public int getId() {
+    public Product(Long id, int partNo, String name, String description,
+                   Boolean isForSale, BigDecimal price) {
+        this.id = id;
+        this.partNo = partNo;
+        this.name = name;
+        this.description = description;
+        this.isForSale = isForSale;
+        this.price = price;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
