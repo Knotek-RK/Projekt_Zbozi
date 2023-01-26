@@ -56,7 +56,7 @@ public class ProductService {
         return null;
     }
 
-    public Long saveNewItem(Product product) throws SQLException {
+    public Long saveNewItem(Product newProduct) throws SQLException {
         Statement statement = connection.createStatement();
 
         statement.executeUpdate(
