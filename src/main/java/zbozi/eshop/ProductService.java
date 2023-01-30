@@ -79,6 +79,6 @@ public class ProductService {
         Statement statement = connection.createStatement();
 
         statement.executeUpdate(
-                "DELETE FROM * product WHERE isForSale = FALSE");
+                "DELETE FROM * product WHERE isForSale = false");
     }
 }
