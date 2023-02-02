@@ -1,5 +1,6 @@
 package zbozi.eshop;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class ProductService {
 
     private static Product extractProductData(ResultSet resultSet) throws SQLException {
         return new Product(
-                resultSet.getLong("id"),
+                resultSet.getInt("id"),
                 resultSet.getInt("partNo"),
                 resultSet.getString("name"),
                 resultSet.getString("description"),
@@ -43,11 +44,11 @@ public class ProductService {
                 resultSet.getBigDecimal("price"));
     }
 
-    public Product loadProductById(Long itemId) throws SQLException {
+    public Product loadProductById(int id) throws SQLException {
         Statement statement = connection.createStatement();
 
         ResultSet resultSet = statement.executeQuery(
-                "SELECT * FROM product WHERE id = " + itemId);
+                "SELECT * FROM product WHERE id = " + id);
 
         if (resultSet.next()) {
             return extractProductData(resultSet);
@@ -56,29 +57,34 @@ public class ProductService {
         return null;
     }
 
-    public Long saveNewItem(Product newProduct) throws SQLException {
+    public Product saveNewItem(Product product) throws SQLException {
         Statement statement = connection.createStatement();
 
         statement.executeUpdate(
-                "INSERT INTO product(partNo, name, description, isForSale, price) VALUES ('"+
-                        newProduct.getPartNo() + "', " + newProduct.getName() + "', " + newProduct.getDescription() +
-                        "', " + newProduct.getForSale() + "', " + newProduct.getPrice() +")",
+                "INSERT INTO product(partNo, name, description, isForSale, price) VALUES ("+
+                        product.getPartNo() + ", '" + product.getName() + "', '" + product.getDescription() +
+                        "', " + product.getIsForSale() + ", " + product.getPrice() +")",
                 Statement.RETURN_GENERATED_KEYS);
 
-        return statement.getGeneratedKeys().getLong("id");
+//        return statement.getGeneratedKeys().getLong("id");
+        ResultSet generatedKeys = statement.getGeneratedKeys();
+        generatedKeys.next();
+        product.setId(generatedKeys.getInt(1));
+
+        return product;
     }
 
-    public void updatePriceById(Long itemId) throws SQLException {
+    public void updatePriceById(int id, BigDecimal price) throws SQLException {
         Statement statement = connection.createStatement();
 
         statement.executeUpdate(
-                "UPDATE product SET price WHERE id = " + itemId);
+                "UPDATE product SET price = " + price + " WHERE id = " + id);
     }
 
-    public void deleteOutOfSaleItems(Boolean IsForSale) throws  SQLException {
+    public void deleteOutOfSaleItems(Boolean isForSale) throws  SQLException {
         Statement statement = connection.createStatement();
 
         statement.executeUpdate(
-                "DELETE FROM * product WHERE isForSale = false");
+                "DELETE FROM * product WHERE isForSale = " + isForSale);
     }
 }
