@@ -3,14 +3,14 @@ package zbozi.eshop;
 import java.math.BigDecimal;
 
 public class Product {
-    private Long id;
+    private int id;
     private int partNo;
     private String name;
     private String description;
     private Boolean isForSale;
     private BigDecimal price;
 
-    public Product(Long id, int partNo, String name, String description,
+    public Product(int id, int partNo, String name, String description,
                    Boolean isForSale, BigDecimal price) {
         this.id = id;
         this.partNo = partNo;
@@ -20,11 +20,21 @@ public class Product {
         this.price = price;
     }
 
-    public Long getId() {
+    public Product(int partNo, String name, String description, Boolean isForSale, BigDecimal price) {
+        this.partNo = partNo;
+        this.name = name;
+        this.description = description;
+        this.isForSale = isForSale;
+        this.price = price;
+    }
+
+    public Product() {}
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -52,11 +62,11 @@ public class Product {
         this.description = description;
     }
 
-    public Boolean getForSale() {
+    public Boolean getIsForSale() {
         return isForSale;
     }
 
-    public void setForSale(Boolean forSale) {
+    public void setIsForSale(Boolean forSale) {
         isForSale = forSale;
     }
 
