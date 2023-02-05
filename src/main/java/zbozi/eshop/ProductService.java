@@ -85,6 +85,6 @@ public class ProductService {
         Statement statement = connection.createStatement();
 
         statement.executeUpdate(
-                "DELETE FROM * product WHERE isForSale = " + isForSale);
+                "DELETE FROM product WHERE isForSale = " + isForSale);
     }
 }
