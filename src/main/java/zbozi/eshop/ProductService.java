@@ -3,6 +3,7 @@ package zbozi.eshop;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class ProductService {
@@ -17,13 +18,13 @@ public class ProductService {
         );
     }
 
-    public List<Product> loadAllAvailableItems() throws SQLException {
+    public Collection<Product> loadAllAvailableItems() throws SQLException {
         Statement statement = connection.createStatement();
 
         ResultSet resultSet = statement.executeQuery(
                 "SELECT * FROM product");
 
-        List<Product> resultList = new ArrayList<>();
+        Collection<Product> resultList = new ArrayList<>();
 
         while (resultSet.next()) {
             Product product = extractProductData(resultSet);
@@ -81,7 +82,7 @@ public class ProductService {
                 "UPDATE product SET price = " + price + " WHERE id = " + id);
     }
 
-    public void deleteOutOfSaleItems(Boolean isForSale) throws  SQLException {
+    public void deleteOutOfSaleItems(boolean isForSale) throws  SQLException {
         Statement statement = connection.createStatement();
 
         statement.executeUpdate(

@@ -7,11 +7,11 @@ public class Product {
     private int partNo;
     private String name;
     private String description;
-    private Boolean isForSale;
+    private boolean isForSale;
     private BigDecimal price;
 
     public Product(int id, int partNo, String name, String description,
-                   Boolean isForSale, BigDecimal price) {
+                   boolean isForSale, BigDecimal price) {
         this.id = id;
         this.partNo = partNo;
         this.name = name;
@@ -20,13 +20,13 @@ public class Product {
         this.price = price;
     }
 
-    public Product(int partNo, String name, String description, Boolean isForSale, BigDecimal price) {
-        this.partNo = partNo;
-        this.name = name;
-        this.description = description;
-        this.isForSale = isForSale;
-        this.price = price;
-    }
+//    public Product(int partNo, String name, String description, Boolean isForSale, BigDecimal price) {
+//        this.partNo = partNo;
+//        this.name = name;
+//        this.description = description;
+//        this.isForSale = isForSale;
+//        this.price = price;
+//    }
 
     public Product() {}
 
@@ -62,11 +62,11 @@ public class Product {
         this.description = description;
     }
 
-    public Boolean getIsForSale() {
+    public boolean getIsForSale() {
         return isForSale;
     }
 
-    public void setIsForSale(Boolean forSale) {
+    public void setIsForSale(boolean forSale) {
         isForSale = forSale;
     }
 
