@@ -89,6 +89,16 @@ public class ProductService {
         }
     }
 
+    public void deleteItemById(int id) throws  SQLException {
+        Statement statement = connection.createStatement();
+        try {
+            statement.executeUpdate(
+                    "DELETE FROM product WHERE id = " + id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 //    public void deleteOutOfSaleItems(boolean isForSale) throws  SQLException {
 //        Statement statement = connection.createStatement();
 //        try {

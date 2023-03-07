@@ -33,16 +33,21 @@ public class ProductController {
     @PatchMapping("/product/{id}")
     public void updatePrice(@PathVariable(value = "id") int id, @RequestParam(value = "price", required = true) BigDecimal price) throws SQLException {
         productService.updatePriceById(id, price);
-
     }
 
-//    @DeleteMapping("/product")
+    @DeleteMapping("/product")
+    public Product deleteItem(@RequestParam("id") int id) throws SQLException {
+        productService.deleteItemById(id);
+        return deleteItem(id);
+    }
+
+//    @DeleteMapping("/products")
 //    public Product deleteItems(@RequestParam("isForSale") boolean isForSale) throws SQLException {
 //        productService.deleteOutOfSaleItems(isForSale);
 //        return deleteItems(isForSale);
 //    }
 
-//    @DeleteMapping("/product")
+//    @DeleteMapping("/products")
 //    public Product deleteItems() throws SQLException {
 ////        return productService.deleteOutOfSaleItems();
 //        return deleteItems();
