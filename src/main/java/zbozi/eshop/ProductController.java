@@ -36,9 +36,15 @@ public class ProductController {
 
     }
 
-    @DeleteMapping("/product")
-    public Product deleteItems(@RequestParam("isForSale") boolean isForSale) throws SQLException {
-        productService.deleteOutOfSaleItems(isForSale);
-        return deleteItems(isForSale);
-    }
+//    @DeleteMapping("/product")
+//    public Product deleteItems(@RequestParam("isForSale") boolean isForSale) throws SQLException {
+//        productService.deleteOutOfSaleItems(isForSale);
+//        return deleteItems(isForSale);
+//    }
+
+//    @DeleteMapping("/product")
+//    public Product deleteItems() throws SQLException {
+////        return productService.deleteOutOfSaleItems();
+//        return deleteItems();
+//    }
 }

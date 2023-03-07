@@ -20,18 +20,18 @@ public class ProductService {
 
     public Collection<Product> loadAllAvailableItems() throws SQLException {
         Statement statement = connection.createStatement();
-
-        ResultSet resultSet = statement.executeQuery(
-                "SELECT * FROM product");
-
         Collection<Product> resultList = new ArrayList<>();
+        try {
+            ResultSet resultSet = statement.executeQuery(
+                    "SELECT * FROM product");
 
-        while (resultSet.next()) {
-            Product product = extractProductData(resultSet);
-
-            resultList.add(product);
+            while (resultSet.next()) {
+                Product product = extractProductData(resultSet);
+                resultList.add(product);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
         return resultList;
     }
 
@@ -47,45 +47,64 @@ public class ProductService {
 
     public Product loadProductById(int id) throws SQLException {
         Statement statement = connection.createStatement();
+        try {
+            ResultSet resultSet = statement.executeQuery(
+                    "SELECT * FROM product WHERE id = " + id);
 
-        ResultSet resultSet = statement.executeQuery(
-                "SELECT * FROM product WHERE id = " + id);
-
-        if (resultSet.next()) {
-            return extractProductData(resultSet);
+            if (resultSet.next()) {
+                return extractProductData(resultSet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
         return null;
     }
 
     public Product saveNewItem(Product product) throws SQLException {
         Statement statement = connection.createStatement();
-
-        statement.executeUpdate(
-                "INSERT INTO product(partNo, name, description, isForSale, price) VALUES ("+
-                        product.getPartNo() + ", '" + product.getName() + "', '" + product.getDescription() +
-                        "', " + product.getIsForSale() + ", " + product.getPrice() +")",
-                Statement.RETURN_GENERATED_KEYS);
+        try {
+            statement.executeUpdate(
+                    "INSERT INTO product(partNo, name, description, isForSale, price) VALUES ("+
+                            product.getPartNo() + ", '" + product.getName() + "', '" + product.getDescription() +
+                            "', " + product.getIsForSale() + ", " + product.getPrice() +")",
+                    Statement.RETURN_GENERATED_KEYS);
 
 //        return statement.getGeneratedKeys().getLong("id");
-        ResultSet generatedKeys = statement.getGeneratedKeys();
-        generatedKeys.next();
-        product.setId(generatedKeys.getInt(1));
-
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+            generatedKeys.next();
+            product.setId(generatedKeys.getInt(1));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return product;
     }
 
     public void updatePriceById(int id, BigDecimal price) throws SQLException {
         Statement statement = connection.createStatement();
-
-        statement.executeUpdate(
-                "UPDATE product SET price = " + price + " WHERE id = " + id);
+        try {
+            statement.executeUpdate(
+                    "UPDATE product SET price = " + price + " WHERE id = " + id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void deleteOutOfSaleItems(boolean isForSale) throws  SQLException {
-        Statement statement = connection.createStatement();
+//    public void deleteOutOfSaleItems(boolean isForSale) throws  SQLException {
+//        Statement statement = connection.createStatement();
+//        try {
+//            statement.executeUpdate(
+//                    "DELETE FROM product WHERE isForSale = " + isForSale);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-        statement.executeUpdate(
-                "DELETE FROM product WHERE isForSale = " + isForSale);
-    }
+//    public void deleteOutOfSaleItems() throws  SQLException {
+//        Statement statement = connection.createStatement();
+//
+//        statement.executeUpdate(
+//                "DELETE FROM product WHERE isForSale = false");
+//    }
+
+
 }
