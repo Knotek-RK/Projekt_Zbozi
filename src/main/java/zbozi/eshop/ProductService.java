@@ -106,5 +106,13 @@ public class ProductService {
 //                "DELETE FROM product WHERE isForSale = false");
 //    }
 
-
+    public void SellOrStock(boolean isForSale) throws SQLException {
+        Statement statement = connection.createStatement();
+        try {
+            statement.executeUpdate(
+                    "Update product SET isForSale = " + isForSale);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

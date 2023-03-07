@@ -47,4 +47,9 @@ public class ProductController {
 ////        return productService.deleteOutOfSaleItems();
 //        return deleteItems();
 //    }
+
+    @PatchMapping("/sell-or-stock")
+    public void isForSaleChange(@RequestParam(value = "isForSale") boolean isForSale) throws SQLException {
+        productService.SellOrStock(isForSale);
+    }
 }
