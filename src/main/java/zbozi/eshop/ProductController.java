@@ -47,11 +47,11 @@ public class ProductController {
 //        return deleteItems(isForSale);
 //    }
 
-//    @DeleteMapping("/products")
-//    public Product deleteItems() throws SQLException {
-////        return productService.deleteOutOfSaleItems();
-//        return deleteItems();
-//    }
+    @DeleteMapping("/products")
+    public Product deleteItems() throws SQLException {
+        productService.deleteOutOfSaleItems();
+        return deleteItems();
+    }
 
     @PatchMapping("/sell-or-stock")
     public void isForSaleChange(@RequestParam(value = "isForSale") boolean isForSale) throws SQLException {

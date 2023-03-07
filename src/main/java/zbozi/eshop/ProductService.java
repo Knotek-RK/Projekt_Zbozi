@@ -109,12 +109,15 @@ public class ProductService {
 //        }
 //    }
 
-//    public void deleteOutOfSaleItems() throws  SQLException {
-//        Statement statement = connection.createStatement();
-//
-//        statement.executeUpdate(
-//                "DELETE FROM product WHERE isForSale = false");
-//    }
+    public void deleteOutOfSaleItems() throws  SQLException {
+        Statement statement = connection.createStatement();
+        try {
+            statement.executeUpdate(
+                    "DELETE FROM product WHERE isForSale=false");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void SellOrStock(boolean isForSale) throws SQLException {
         Statement statement = connection.createStatement();
